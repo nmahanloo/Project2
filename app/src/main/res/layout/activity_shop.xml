@@ -21,9 +21,9 @@
 
     <EditText
         android:id="@+id/shop_search_edittext"
-        android:layout_width="240dp"
+        android:layout_width="234dp"
         android:layout_height="55dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:hint="@string/search_for_an_item"
         android:inputType="textAutoComplete"
