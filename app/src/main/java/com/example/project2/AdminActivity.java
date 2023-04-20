@@ -33,13 +33,13 @@ public class AdminActivity extends AppCompatActivity {
     }
     private void manageProducts() {
         manage_products_button.setOnClickListener(view -> {
-            Intent intent = ManageProductsActivity.getIntent(getApplicationContext());
+            Intent intent = ManageProductsActivity.intentFactory(getApplicationContext(), userID);
             startActivity(intent);
         });
     }
     private void manageUsers() {
         manage_users_button.setOnClickListener(view -> {
-            Intent intent = ManageUsersActivity.getIntent(getApplicationContext());
+            Intent intent = ManageUsersActivity.intentFactory(getApplicationContext(), userID);
             startActivity(intent);
         });
     }
@@ -49,7 +49,9 @@ public class AdminActivity extends AppCompatActivity {
         Intent intent = MainActivity.intentFactory(getApplicationContext(), userID);
         startActivity(intent);
     }
-    public static Intent getIntent(Context context) {
-        return new Intent(context, AdminActivity.class);
+    public static Intent intentFactory(Context context, int userId) {
+        Intent intent = new Intent(context, AdminActivity.class);
+        intent.putExtra(USER_ID_KEY, userId);
+        return intent;
     }
 }

@@ -23,6 +23,7 @@ import java.text.DecimalFormat;
  * the database.
  */
 public class AddProductActivity extends AppCompatActivity {
+    private static final String USER_ID_KEY = "com.example.project2.userIdKey";
     private EditText add_productName;
     private EditText add_productQuantity;
     private EditText add_productPrice;
@@ -33,6 +34,7 @@ public class AddProductActivity extends AppCompatActivity {
     private double newProductPrice = 0.00;
     private int newProductQuantity = 0;
     private String newProductDescription = "No description";
+    private int userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,7 @@ public class AddProductActivity extends AppCompatActivity {
         add_productPrice = addProductActivityBinding.addProductPriceEdittext;
         add_productDescription = addProductActivityBinding.addProductDescriptionEdittext;
         addAProduct = addProductActivityBinding.addAProductButton;
+        userID = getIntent().getExtras().getInt(USER_ID_KEY, -1);
         getDatabase();
         addProduct();
     }
@@ -79,7 +82,7 @@ public class AddProductActivity extends AppCompatActivity {
                 Product newProduct = new Product(newProductName, newProductQuantity, newProductPrice, newProductDescription);
                 shoppingMasterDAO.insertProduct(newProduct);
                 Toast.makeText(AddProductActivity.this, newProductName + " added successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = ManageProductsActivity.getIntent(getApplicationContext());
+                Intent intent = ManageProductsActivity.intentFactory(getApplicationContext(), userID);
                 startActivity(intent);
             }
         });
@@ -89,7 +92,9 @@ public class AddProductActivity extends AppCompatActivity {
         super.onBackPressed();
         finishAndRemoveTask();
     }
-    public static Intent getIntent(Context context) {
-        return new Intent(context, AddProductActivity.class);
+    public static Intent intentFactory(Context context, int userId) {
+        Intent intent = new Intent(context, AddProductActivity.class);
+        intent.putExtra(USER_ID_KEY, userId);
+        return intent;
     }
 }

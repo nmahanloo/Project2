@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void goToAdmin() {
         menu_admin_button.setOnClickListener(view15 -> {
-            Intent intent = AdminActivity.getIntent(getApplicationContext());
+            Intent intent = AdminActivity.intentFactory(getApplicationContext(), user.getUserId());
             startActivity(intent);
         });
     }

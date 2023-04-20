@@ -31,11 +31,13 @@ import java.util.List;
  * admin.
  */
 public class ManageUsersActivity extends AppCompatActivity {
+    private static final String USER_ID_KEY = "com.example.project2.userIdKey";
     private ListView users_listView;
     private SwitchCompat adminPermit_switch;
     private Button deleteAccount_button;
     private ShoppingMasterDAO shoppingMasterDAO;
     private User selectedUser;
+    private int userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,7 @@ public class ManageUsersActivity extends AppCompatActivity {
         users_listView = manageUsersActivityBinding.usersListview;
         adminPermit_switch = manageUsersActivityBinding.adminSwitch;
         deleteAccount_button = manageUsersActivityBinding.deleteAccountButton;
+        userID = getIntent().getExtras().getInt(USER_ID_KEY, -1);
         getDatabase();
         displayUserList();
         permitChange();
@@ -141,7 +144,9 @@ public class ManageUsersActivity extends AppCompatActivity {
         super.onBackPressed();
         finishAndRemoveTask();
     }
-    public static Intent getIntent(Context context) {
-        return new Intent(context, ManageUsersActivity.class);
+    public static Intent intentFactory(Context context, int userId) {
+        Intent intent = new Intent(context, ManageUsersActivity.class);
+        intent.putExtra(USER_ID_KEY, userId);
+        return intent;
     }
 }

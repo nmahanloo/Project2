@@ -23,12 +23,14 @@ import java.util.List;
  * the database by admin.
  */
 public class ManageProductsActivity extends AppCompatActivity {
+    private static final String USER_ID_KEY = "com.example.project2.userIdKey";
     private Button add_product_button;
     private Button update_product_button;
     private Button remove_product_button;
     private ListView products_listView;
     private ShoppingMasterDAO shoppingMasterDAO;
     private Product selectedProduct = null;
+    private int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class ManageProductsActivity extends AppCompatActivity {
         update_product_button = activityManageProductsBinding.updateProductButton;
         remove_product_button = activityManageProductsBinding.removeProductButton;
         products_listView = activityManageProductsBinding.productsListview;
+        userID = getIntent().getExtras().getInt(USER_ID_KEY, -1);
         getDatabase();
         displayProductList();
         addProduct();
@@ -75,7 +78,7 @@ public class ManageProductsActivity extends AppCompatActivity {
     private void addProduct()
     {
         add_product_button.setOnClickListener(view -> {
-            Intent intent = AddProductActivity.getIntent(getApplicationContext());
+            Intent intent = AddProductActivity.intentFactory(getApplicationContext(), userID);
             startActivity(intent);
         });
     }
@@ -84,6 +87,7 @@ public class ManageProductsActivity extends AppCompatActivity {
             if (selectedProduct != null) {
                 Intent intent = new Intent(ManageProductsActivity.this, UpdateProductActivity.class);
                 intent.putExtra("productIDKey", selectedProduct.getProductId());
+                intent.putExtra(USER_ID_KEY, userID);
                 startActivity(intent);
             }
             else {
@@ -96,7 +100,7 @@ public class ManageProductsActivity extends AppCompatActivity {
             if (selectedProduct != null) {
                 shoppingMasterDAO.deleteProduct(selectedProduct);
                 Toast.makeText(getBaseContext(), selectedProduct.getProductName() + " removed successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = ManageProductsActivity.getIntent(getApplicationContext());
+                Intent intent = ManageProductsActivity.intentFactory(getApplicationContext(), userID);
                 startActivity(intent);
             }
             else {
@@ -107,10 +111,12 @@ public class ManageProductsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = AdminActivity.getIntent(getApplicationContext());
+        Intent intent = AdminActivity.intentFactory(getApplicationContext(), userID);
         startActivity(intent);
     }
-    public static Intent getIntent(Context context) {
-        return new Intent(context, ManageProductsActivity.class);
+    public static Intent intentFactory(Context context, int userId) {
+        Intent intent = new Intent(context, ManageProductsActivity.class);
+        intent.putExtra(USER_ID_KEY, userId);
+        return intent;
     }
 }

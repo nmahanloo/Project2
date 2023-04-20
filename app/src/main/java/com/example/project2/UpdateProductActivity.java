@@ -35,6 +35,7 @@ import java.util.List;
  * a product data in the database.
  */
 public class UpdateProductActivity extends AppCompatActivity {
+    private static final String USER_ID_KEY = "com.example.project2.userIdKey";
     private ActivityUpdateProductBinding updateProductActivityBinding;
     private EditText update_productName;
     private EditText update_productQuantity;
@@ -46,6 +47,7 @@ public class UpdateProductActivity extends AppCompatActivity {
     private double updateProductPrice;
     private int updateProductQuantity;
     private String updateProductDescription;
+    private int userID;
     private int productID;
     private Product product;
     @Override
@@ -61,6 +63,7 @@ public class UpdateProductActivity extends AppCompatActivity {
         update_productDescription = updateProductActivityBinding.updateProductDescriptionEdittext;
         updateAProduct = updateProductActivityBinding.updateAProductButton;
         productID = getIntent().getExtras().getInt("productIDKey", -1);
+        userID = getIntent().getExtras().getInt(USER_ID_KEY, -1);
         getDatabase();
         setValuesOnDisplay();
         updateProduct();
@@ -97,7 +100,7 @@ public class UpdateProductActivity extends AppCompatActivity {
                 product.setProductDescription(updateProductDescription);
                 shoppingMasterDAO.updateProduct(product);
                 Toast.makeText(UpdateProductActivity.this, "Product data updated successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = ManageProductsActivity.getIntent(getApplicationContext());
+                Intent intent = ManageProductsActivity.intentFactory(getApplicationContext(), userID);
                 startActivity(intent);
             }
         });
