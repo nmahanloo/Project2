@@ -181,8 +181,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void goToCart() {
         shoppingCard_button.setOnClickListener(view12 -> {
-            Intent intent = new Intent(MainActivity.this, CartActivity.class);
-            intent.putExtra("userIDKey",  user.getUserId());
+            Intent intent = CartActivity.intentFactory(getApplicationContext(), user.getUserId());
             startActivity(intent);
         });
     }

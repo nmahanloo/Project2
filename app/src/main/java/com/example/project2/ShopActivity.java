@@ -26,6 +26,7 @@ import java.util.List;
  * into the CART_TABLE.
  */
 public class ShopActivity extends AppCompatActivity {
+    private static final String USER_ID_KEY = "com.example.project2.userIdKey";
     private ShoppingMasterDAO shoppingMasterDAO;
     private User user;
     private int userID;
@@ -174,8 +175,7 @@ public class ShopActivity extends AppCompatActivity {
     }
     private void goToCart() {
         goToCart_Button.setOnClickListener(view -> {
-            Intent intent = new Intent(ShopActivity.this, CartActivity.class);
-            intent.putExtra("userIDKey",  user.getUserId());
+            Intent intent = CartActivity.intentFactory(getApplicationContext(), user.getUserId());
             startActivity(intent);
         });
     }

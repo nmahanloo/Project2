@@ -28,6 +28,7 @@ import java.util.List;
  * user's shopping cart.
  */
 public class CartActivity extends AppCompatActivity {
+    private static final String USER_ID_KEY = "com.example.project2.userIdKey";
     private ShoppingMasterDAO shoppingMasterDAO;
     private ListView cart_listView;
     private TextView cart_totalPrice_textView;
@@ -35,7 +36,6 @@ public class CartActivity extends AppCompatActivity {
     private Button cart_updateQuantity_button;
     private Button cart_removeItem_button;
     private Button cart_order_button;
-    private Button cart_clearCart_button;
     int userID;
     User user;
     private List<Cart> cartList = new ArrayList<>();
@@ -57,7 +57,7 @@ public class CartActivity extends AppCompatActivity {
         cart_updateQuantity_button = cartActivityBinding.quantityUpdateButton;
         cart_removeItem_button = cartActivityBinding.removeFromCartButton;
         cart_order_button = cartActivityBinding.orderButton;
-        userID = getIntent().getExtras().getInt("userIDKey", -1);
+        userID = getIntent().getExtras().getInt(USER_ID_KEY, -1);
         getDatabase();
         setUser();
         displayCartItems();
@@ -263,7 +263,9 @@ public class CartActivity extends AppCompatActivity {
         Intent intent = MainActivity.getIntent(getApplicationContext());
         startActivity(intent);
     }
-    public static Intent getIntent(Context context) {
-        return new Intent(context, CartActivity.class);
+    public static Intent intentFactory(Context context, int userId) {
+        Intent intent = new Intent(context, CartActivity.class);
+        intent.putExtra(USER_ID_KEY, userId);
+        return intent;
     }
 }
