@@ -37,7 +37,6 @@ public class CartActivity extends AppCompatActivity {
     private Button cart_removeItem_button;
     private Button cart_order_button;
     int userID;
-/*    User user;*/
     private List<Cart> cartList = new ArrayList<>();
     private List<Product> productList = new ArrayList<>();
     private List<CartItem> itemList = new ArrayList<>();
@@ -59,7 +58,6 @@ public class CartActivity extends AppCompatActivity {
         cart_order_button = cartActivityBinding.orderButton;
         userID = getIntent().getExtras().getInt(USER_ID_KEY, -1);
         getDatabase();
-/*        setUser();*/
         displayCartItems();
         itemQuantityUpdate();
         removeItem();
@@ -71,9 +69,6 @@ public class CartActivity extends AppCompatActivity {
                 .build()
                 .getShoppingMasterDAO();
     }
-/*    private void setUser(){
-        user = shoppingMasterDAO.getUserByUserId(userID);
-    }*/
     @SuppressLint("SetTextI18n")
     public void displayCartItems(){
         getItems();

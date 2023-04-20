@@ -26,7 +26,6 @@ import java.util.List;
 public class OrderHistoryActivity extends AppCompatActivity {
     private static final String USER_ID_KEY = "com.example.project2.userIdKey";
     private ShoppingMasterDAO shoppingMasterDAO;
-    private User user;
     private int userID;
     private List<Order> orderList = new ArrayList<>();
     private List<Cart> cartList = new ArrayList<>();
@@ -60,7 +59,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
         orderHistory_back_button.setVisibility(View.INVISIBLE);
         userID = getIntent().getExtras().getInt(USER_ID_KEY, -1);
         getDatabase();
-        //setUser();
         displayOrders();
         orderDetail();
         cancelOrder();
@@ -71,9 +69,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
                 .build()
                 .getShoppingMasterDAO();
     }
-/*    private void setUser(){
-        user = shoppingMasterDAO.getUserByUserId(userID);
-    }*/
     public void displayOrders(){
         orderList = shoppingMasterDAO.getOrdersByUserId(userID);
         if (orderList.size() > 0) {

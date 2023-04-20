@@ -28,7 +28,6 @@ import java.util.List;
 public class ShopActivity extends AppCompatActivity {
     private static final String USER_ID_KEY = "com.example.project2.userIdKey";
     private ShoppingMasterDAO shoppingMasterDAO;
-    private User user;
     private int userID;
     private EditText itemSearch;
     private ListView shopItems_listView;
@@ -57,7 +56,6 @@ public class ShopActivity extends AppCompatActivity {
         goToCart_Button = shopActivityBinding.goToCartButton;
         userID = getIntent().getExtras().getInt(USER_ID_KEY, -1);
         getDatabase();
-        setUser();
         displayAllItems();
         searchForItems();
         clearSearch();
@@ -69,9 +67,6 @@ public class ShopActivity extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build()
                 .getShoppingMasterDAO();
-    }
-    private void setUser(){
-        user = shoppingMasterDAO.getUserByUserId(userID);
     }
     public void displayAllItems(){
         List<Product> productList = shoppingMasterDAO.getAllProducts();
@@ -145,7 +140,7 @@ public class ShopActivity extends AppCompatActivity {
                 } else if (itemQuantity == 0) {
                     Toast.makeText(getBaseContext(), "Enter a valid quantity number", Toast.LENGTH_SHORT).show();
                 } else {
-                    Cart prevItem = shoppingMasterDAO.getCartItemByProductId(user.getUserId(), selectedItem.getProductId());
+                    Cart prevItem = shoppingMasterDAO.getCartItemByProductId(userID, selectedItem.getProductId());
                     if (prevItem != null) {
                         int addedQuantity = prevItem.getItemQuantity();
                         if (addedQuantity+itemQuantity <= selectedItem.getProductQuantity()) {
@@ -175,7 +170,7 @@ public class ShopActivity extends AppCompatActivity {
     }
     private void goToCart() {
         goToCart_Button.setOnClickListener(view -> {
-            Intent intent = CartActivity.intentFactory(getApplicationContext(), user.getUserId());
+            Intent intent = CartActivity.intentFactory(getApplicationContext(), userID);
             startActivity(intent);
         });
     }
