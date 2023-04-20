@@ -24,6 +24,7 @@ import java.util.List;
  * current user account.
  */
 public class OrderHistoryActivity extends AppCompatActivity {
+    private static final String USER_ID_KEY = "com.example.project2.userIdKey";
     private ShoppingMasterDAO shoppingMasterDAO;
     private User user;
     private int userID;
@@ -57,9 +58,9 @@ public class OrderHistoryActivity extends AppCompatActivity {
         cancelOrder_button = orderHistoryActivityBinding.cancelOrderButton;
         orderHistory_back_button = orderHistoryActivityBinding.orderHistoryBackButton;
         orderHistory_back_button.setVisibility(View.INVISIBLE);
-        userID = getIntent().getExtras().getInt("userIDKey", -1);
+        userID = getIntent().getExtras().getInt(USER_ID_KEY, -1);
         getDatabase();
-        setUser();
+        //setUser();
         displayOrders();
         orderDetail();
         cancelOrder();
@@ -70,9 +71,9 @@ public class OrderHistoryActivity extends AppCompatActivity {
                 .build()
                 .getShoppingMasterDAO();
     }
-    private void setUser(){
+/*    private void setUser(){
         user = shoppingMasterDAO.getUserByUserId(userID);
-    }
+    }*/
     public void displayOrders(){
         orderList = shoppingMasterDAO.getOrdersByUserId(userID);
         if (orderList.size() > 0) {
@@ -217,10 +218,12 @@ public class OrderHistoryActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = MainActivity.getIntent(getApplicationContext());
+        Intent intent = MainActivity.intentFactory(getApplicationContext(), userID);
         startActivity(intent);
     }
-    public static Intent getIntent(Context context) {
-        return new Intent(context, OrderHistoryActivity.class);
+    public static Intent intentFactory(Context context, int userId) {
+        Intent intent = new Intent(context, OrderHistoryActivity.class);
+        intent.putExtra(USER_ID_KEY, userId);
+        return intent;
     }
 }

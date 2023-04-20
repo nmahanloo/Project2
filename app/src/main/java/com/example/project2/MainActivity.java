@@ -186,8 +186,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void goToOrderHistory() {
         orderHistory_button.setOnClickListener(view13 -> {
-            Intent intent = new Intent(MainActivity.this, OrderHistoryActivity.class);
-            intent.putExtra("userIDKey",  user.getUserId());
+            Intent intent = OrderHistoryActivity.intentFactory(getApplicationContext(), user.getUserId());
             startActivity(intent);
         });
     }
@@ -221,8 +220,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(USER_ID_KEY, userId);
         return intent;
-    }
-    public static Intent getIntent(Context context) {
-        return new Intent(context, MainActivity.class);
     }
 }

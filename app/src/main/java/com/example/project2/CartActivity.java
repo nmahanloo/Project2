@@ -37,7 +37,7 @@ public class CartActivity extends AppCompatActivity {
     private Button cart_removeItem_button;
     private Button cart_order_button;
     int userID;
-    User user;
+/*    User user;*/
     private List<Cart> cartList = new ArrayList<>();
     private List<Product> productList = new ArrayList<>();
     private List<CartItem> itemList = new ArrayList<>();
@@ -59,7 +59,7 @@ public class CartActivity extends AppCompatActivity {
         cart_order_button = cartActivityBinding.orderButton;
         userID = getIntent().getExtras().getInt(USER_ID_KEY, -1);
         getDatabase();
-        setUser();
+/*        setUser();*/
         displayCartItems();
         itemQuantityUpdate();
         removeItem();
@@ -71,9 +71,9 @@ public class CartActivity extends AppCompatActivity {
                 .build()
                 .getShoppingMasterDAO();
     }
-    private void setUser(){
+/*    private void setUser(){
         user = shoppingMasterDAO.getUserByUserId(userID);
-    }
+    }*/
     @SuppressLint("SetTextI18n")
     public void displayCartItems(){
         getItems();
@@ -195,9 +195,7 @@ public class CartActivity extends AppCompatActivity {
                     }
                     adjustProductQuantity();
                     Toast.makeText(getBaseContext(), "Order placed successfully", Toast.LENGTH_SHORT).show();
-                    //rebootActivity();
-                    Intent intent = new Intent(CartActivity.this, OrderHistoryActivity.class);
-                    intent.putExtra("userIDKey", user.getUserId());
+                    Intent intent = OrderHistoryActivity.intentFactory(getApplicationContext(), userID);
                     startActivity(intent);
                 }
                 else {
@@ -260,7 +258,7 @@ public class CartActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = MainActivity.getIntent(getApplicationContext());
+        Intent intent = MainActivity.intentFactory(getApplicationContext(), userID);
         startActivity(intent);
     }
     public static Intent intentFactory(Context context, int userId) {

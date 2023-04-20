@@ -14,8 +14,10 @@ import com.example.project2.databinding.ActivityAdminBinding;
  * which is in use to handle admin page.
  */
 public class AdminActivity extends AppCompatActivity {
+    private static final String USER_ID_KEY = "com.example.project2.userIdKey";
     private Button manage_products_button;
     private Button manage_users_button;
+    private int userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,7 @@ public class AdminActivity extends AppCompatActivity {
         setContentView(view);
         manage_products_button = adminActivityBinding.manageProductsButton;
         manage_users_button = adminActivityBinding.manageUsersButton;
+        userID = getIntent().getExtras().getInt(USER_ID_KEY, -1);
         manageProducts();
         manageUsers();
     }
@@ -43,7 +46,7 @@ public class AdminActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = MainActivity.getIntent(getApplicationContext());
+        Intent intent = MainActivity.intentFactory(getApplicationContext(), userID);
         startActivity(intent);
     }
     public static Intent getIntent(Context context) {

@@ -98,7 +98,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
                         user.setPassword(newPassword);
                         shoppingMasterDAO.updateUser(user);
                         Toast.makeText(PasswordChangeActivity.this, "Password updated successfully", Toast.LENGTH_SHORT).show();
-                        Intent intent = MainActivity.getIntent(getApplicationContext());
+                        Intent intent = MainActivity.intentFactory(getApplicationContext(), userID);
                         startActivity(intent);
                     } else {
                         Toast.makeText(PasswordChangeActivity.this, "Entered password is same as the current password", Toast.LENGTH_SHORT).show();
