@@ -21,6 +21,7 @@ import com.example.project2.db.ShoppingMasterDAO;
  * a user account in the database.
  */
 public class PasswordChangeActivity extends AppCompatActivity {
+    private static final String USER_ID_KEY = "com.example.project2.userIdKey";
     private TextView username_textView;
     private EditText current_password_editText;
     private EditText new_password_editText;
@@ -45,7 +46,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
         new_password_editText = passwordChangeActivityBinding.newPasswordEdittext;
         confirmNew_password_editText = passwordChangeActivityBinding.confirmNewPasswordEdittext;
         passwordChange_button = passwordChangeActivityBinding.passChangeButton;
-        userID = getIntent().getExtras().getInt("userIDKey", -1);
+        userID = getIntent().getExtras().getInt(USER_ID_KEY, -1);
         getDatabase();
         setUser();
         passwordChange();
@@ -110,7 +111,9 @@ public class PasswordChangeActivity extends AppCompatActivity {
             }
         });
     }
-    public static Intent getIntent(Context context) {
-        return new Intent(context, PasswordChangeActivity.class);
+    public static Intent intentFactory(Context context, int userId) {
+        Intent intent = new Intent(context, PasswordChangeActivity.class);
+        intent.putExtra(USER_ID_KEY, userId);
+        return intent;
     }
 }

@@ -195,8 +195,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void goToPasswordChange() {
         changePassword_button.setOnClickListener(view14 -> {
-            Intent intent = new Intent(MainActivity.this, PasswordChangeActivity.class);
-            intent.putExtra("userIDKey",  user.getUserId());
+            Intent intent = PasswordChangeActivity.intentFactory(getApplicationContext(), user.getUserId());
             startActivity(intent);
         });
     }
