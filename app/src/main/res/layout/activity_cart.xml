@@ -74,24 +74,26 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
-        android:textAlignment="center"
+        android:layout_marginStart="106dp"
+        android:autofillHints=""
         android:hint="@string/set_quantity"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/total_price_textview"
-        android:autofillHints="" />
-
-    <Button
-        android:id="@+id/quantity_update_button"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/update_quantity"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cart_quantity_edittext" />
+        app:layout_constraintTop_toBottomOf="@id/total_price_textview" />
+
+    <ImageButton
+        android:id="@+id/quantity_update_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toEndOf="@id/cart_quantity_edittext"
+        app:layout_constraintTop_toBottomOf="@id/total_price_textview"
+        app:layout_constraintBottom_toBottomOf="@id/cart_quantity_edittext"
+        app:srcCompat="@drawable/enter_alt"
+        android:contentDescription="@string/apply_quantity" />
 
     <Button
         android:id="@+id/remove_from_cart_button"
@@ -105,6 +107,17 @@
         app:layout_constraintTop_toBottomOf="@id/quantity_update_button" />
 
     <Button
+        android:id="@+id/remove_all_button"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/remove_all"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/remove_from_cart_button" />
+
+    <Button
         android:id="@+id/order_button"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
@@ -113,6 +126,6 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/remove_from_cart_button" />
+        app:layout_constraintTop_toBottomOf="@id/remove_all_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

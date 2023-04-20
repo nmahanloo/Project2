@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,8 +34,9 @@ public class CartActivity extends AppCompatActivity {
     private ListView cart_listView;
     private TextView cart_totalPrice_textView;
     private EditText cart_quantity_editText;
-    private Button cart_updateQuantity_button;
+    private ImageButton cart_updateQuantity_button;
     private Button cart_removeItem_button;
+    private Button cart_removeAll_button;
     private Button cart_order_button;
     int userID;
     private List<Cart> cartList = new ArrayList<>();
@@ -55,12 +57,14 @@ public class CartActivity extends AppCompatActivity {
         cart_quantity_editText = cartActivityBinding.cartQuantityEdittext;
         cart_updateQuantity_button = cartActivityBinding.quantityUpdateButton;
         cart_removeItem_button = cartActivityBinding.removeFromCartButton;
+        cart_removeAll_button = cartActivityBinding.removeAllButton;
         cart_order_button = cartActivityBinding.orderButton;
         userID = getIntent().getExtras().getInt(USER_ID_KEY, -1);
         getDatabase();
         displayCartItems();
         itemQuantityUpdate();
         removeItem();
+        removeAllItems();
         completeOrder();
     }
     private void getDatabase() {
@@ -153,6 +157,24 @@ public class CartActivity extends AppCompatActivity {
             }
             else {
                 Toast.makeText(getBaseContext(), "No item selected yet", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void removeAllItems() {
+        cart_removeAll_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (cartList.size() > 0) {
+                    selectedItem = null;
+                    for (Cart cart : cartList) {
+                        shoppingMasterDAO.deleteItem(cart);
+                    }
+                    Toast.makeText(getBaseContext(), "All items removed successfully", Toast.LENGTH_SHORT).show();
+                    rebootActivity();
+                }
+                else {
+                    Toast.makeText(getBaseContext(), "Shopping cart is empty", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

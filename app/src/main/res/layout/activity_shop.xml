@@ -33,26 +33,30 @@
 
     <ImageButton
         android:id="@+id/shop_search_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginTop="5dp"
         android:background="@color/white"
         android:scaleType="fitCenter"
         app:layout_constraintStart_toEndOf="@id/shop_search_edittext"
         app:layout_constraintEnd_toStartOf="@id/shop_clear_button"
         app:layout_constraintTop_toTopOf="@id/shop_search_edittext"
-        app:srcCompat="@drawable/search" />
+        app:layout_constraintBottom_toBottomOf="@id/shop_search_edittext"
+        app:srcCompat="@drawable/search"
+        android:contentDescription="@string/search" />
 
     <ImageButton
         android:id="@+id/shop_clear_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginTop="5dp"
         android:background="@color/white"
         android:scaleType="fitCenter"
         app:layout_constraintStart_toEndOf="@id/shop_search_button"
         app:layout_constraintTop_toTopOf="@id/shop_search_edittext"
-        app:srcCompat="@drawable/clear" />
+        app:layout_constraintBottom_toBottomOf="@id/shop_search_button"
+        app:srcCompat="@drawable/clear"
+        android:contentDescription="@string/clear_search" />
 
     <TextView
         android:id="@+id/items_list_textview"
@@ -95,7 +99,7 @@
     <EditText
         android:id="@+id/shop_quantity_edittext"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:textAlignment="center"
         android:hint="@string/set_quantity"

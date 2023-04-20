@@ -58,4 +58,9 @@
     <string name="total_price">total price</string>
     <string name="admin_off_on">Admin OFF/ON</string>
     <string name="cancel_order">Cancel Order</string>
+    <string name="remove_all">Remove All</string>
+    <string name="clear">clear</string>
+    <string name="clear_search">Clear Search</string>
+    <string name="search">Search</string>
+    <string name="apply_quantity">Apply Quantity</string>
 </resources>
