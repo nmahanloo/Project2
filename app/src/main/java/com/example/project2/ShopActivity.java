@@ -55,7 +55,7 @@ public class ShopActivity extends AppCompatActivity {
         shopQuantity_editText = shopActivityBinding.shopQuantityEdittext;
         addToCart_Button = shopActivityBinding.cartButton;
         goToCart_Button = shopActivityBinding.goToCartButton;
-        userID = getIntent().getExtras().getInt("userIDKey", -1);
+        userID = getIntent().getExtras().getInt(USER_ID_KEY, -1);
         getDatabase();
         setUser();
         displayAllItems();
@@ -184,7 +184,9 @@ public class ShopActivity extends AppCompatActivity {
         super.onBackPressed();
         finishAndRemoveTask();
     }
-    public static Intent getIntent(Context context) {
-        return new Intent(context, ShopActivity.class);
+    public static Intent intentFactory(Context context, int userId) {
+        Intent intent = new Intent(context, ShopActivity.class);
+        intent.putExtra(USER_ID_KEY, userId);
+        return intent;
     }
 }

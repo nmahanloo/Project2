@@ -174,8 +174,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void goToShop() {
         shop_button.setOnClickListener(view1 -> {
-            Intent intent = new Intent(MainActivity.this, ShopActivity.class);
-            intent.putExtra("userIDKey",  user.getUserId());
+            Intent intent = ShopActivity.intentFactory(getApplicationContext(), user.getUserId());
             startActivity(intent);
         });
     }
